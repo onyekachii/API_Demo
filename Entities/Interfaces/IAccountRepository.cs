@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Entities.Interfaces
 {
-    public interface ICustomerRepository 
+    public interface IAccountRepository
     {
-        IEnumerable<Customer> GetAllCustomers(bool trackChanges);
+        Account FindAccount(Guid Id);
     }
 }

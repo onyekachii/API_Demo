@@ -13,6 +13,7 @@ namespace CustomerInfoAPI.MappingProfile
         public MappingProfile()
         {
             CreateMap<Customer, CustomerDTO>();
+            CreateMap<Account, AccountDTO>();
         }
     }
 }

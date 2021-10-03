@@ -19,6 +19,44 @@ namespace CustomerInfoAPI.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Entities.Models.Account", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccountNumber")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(38,2)");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            AccountNumber = 123456789,
+                            Balance = 2000m,
+                            CustomerId = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a")
+                        },
+                        new
+                        {
+                            Id = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
+                            AccountNumber = 123456789,
+                            Balance = 2000m,
+                            CustomerId = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811")
+                        });
+                });
+
             modelBuilder.Entity("Entities.Models.Customer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -65,7 +103,7 @@ namespace CustomerInfoAPI.Migrations
                         {
                             Id = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
                             Age = 23,
-                            CreatedAt = new DateTime(2021, 10, 2, 23, 58, 5, 291, DateTimeKind.Local).AddTicks(4475),
+                            CreatedAt = new DateTime(2021, 10, 3, 10, 0, 50, 641, DateTimeKind.Local).AddTicks(2706),
                             CreatedBy = "Kapitan",
                             DefaultPassword = true,
                             FirstName = "Alex",
@@ -78,7 +116,7 @@ namespace CustomerInfoAPI.Migrations
                         {
                             Id = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811"),
                             Age = 70,
-                            CreatedAt = new DateTime(2021, 10, 2, 23, 58, 5, 291, DateTimeKind.Local).AddTicks(7651),
+                            CreatedAt = new DateTime(2021, 10, 3, 10, 0, 50, 641, DateTimeKind.Local).AddTicks(7333),
                             CreatedBy = "Kapitan",
                             DefaultPassword = true,
                             FirstName = "Tochi",
@@ -87,6 +125,17 @@ namespace CustomerInfoAPI.Migrations
                             Nationality = "Nigerian",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("Entities.Models.Account", b =>
+                {
+                    b.HasOne("Entities.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }

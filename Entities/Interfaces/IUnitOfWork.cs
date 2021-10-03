@@ -10,6 +10,7 @@ namespace Entities.Interfaces
     public interface IUnitOfWork
     {
         CustomerRepository Customers { get; }
+        IAccountRepository Accounts { get; }
         void Save();
     }
 

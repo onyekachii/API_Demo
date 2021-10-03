@@ -14,7 +14,7 @@ namespace Entities.Repository
         {
         }
 
-        public IEnumerable<Customer> GetAllCompanies(bool trackChanges) =>
+        public IEnumerable<Customer> GetAllCustomers(bool trackChanges) =>
             FindAll(trackChanges).OrderBy(c => c.Id).ToList();
     }
 }
